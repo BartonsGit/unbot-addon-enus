@@ -1,5 +1,4 @@
-﻿
-function UnBotTick(bagsFrame, tick)
+﻿function UnBotTick(bagsFrame, tick)
 	if (bagsFrame.lastFlushTick > 0) then
 		if  ((tick - bagsFrame.lastFlushTick) > bagsFrame.waitFlushTime) then
 			bagsFrame.lastFlushTick = 0;
@@ -49,7 +48,7 @@ local function CreateIconGroupByParent(fromParent,hheadGap,vheadGap,hnum,vnum,hg
 			iconsGroup[iconsIndex] = newFrame;
 			iconsIndex = iconsIndex + 1;
 			newFrame.countLabel = newFrame:CreateFontString(newFrame:GetName().."Count","OVERLAY");
-			newFrame.countLabel:SetFont([[Fonts\ZYHei.ttf]],12);
+			newFrame.countLabel:SetFont([[Fonts\FRIZQT__.TTF]],12);
 			newFrame.countLabel:SetTextColor(0.8,0,0.8,1);
 			newFrame.countLabel:SetHeight(12);
 			newFrame.countLabel:SetText(" ");
@@ -81,13 +80,13 @@ function UnBotGetCostEnergyText(costType, costValue)
 		return " ";
 	end
 	if (costType == 0) then
-		return "消耗"..tostring(costValue).."法力";
+		return "Consumes "..tostring(costValue).." Mana";
 	elseif (costType == 1) then
-		return "消耗"..tostring(costValue).."怒气";
+		return "Consumes "..tostring(costValue).." Rage";
 	elseif (costType == 3) then
-		return "消耗"..tostring(costValue).."能量";
+		return "Consumes "..tostring(costValue).." Energy";
 	else
-		return "消耗"..tostring(costValue).."资源";
+		return "Consumes "..tostring(costValue).." Resources";
 	end
 end
 	--item [2] = spellID
@@ -109,7 +108,7 @@ function UnBotShowButtonTips(newFrame, fromParent)
 					GameTooltip:SetHyperlink("item:"..itemID..":0:0:0:0:0:0:0");
 					if (fromParent.dataGroup[newFrame.dataIndex][7] ~= nil and fromParent.dataGroup[newFrame.dataIndex][7] > 1) then
 						GameTooltip:AddLine(" ",1,1,1,1);
-						GameTooltip:AddDoubleLine("拥有数量：",tostring(fromParent.dataGroup[newFrame.dataIndex][7]),0,0.8,0.8,0.8,0.8,0);
+						GameTooltip:AddDoubleLine("Owned Quantity:",tostring(fromParent.dataGroup[newFrame.dataIndex][7]),0,0.8,0.8,0.8,0.8,0);
 					end
 				elseif (fromParent.bagsType == 2) then
 					local spellLink = GetSpellLink(itemID);
@@ -121,39 +120,39 @@ function UnBotShowButtonTips(newFrame, fromParent)
 						GameTooltip:AddDoubleLine(UnBotGetCostEnergyText(spellData[7],spellData[8]),tostring(spellData[6]),1,1,1,0.5,0.5,0.5);
 						local castDis = "";
 						if (spellData[10] <= 0) then
-							castDis = "自我施法";
+							castDis = "Self-cast";
 						else
-							castDis = tostring(spellData[10]).."码距离";
+							castDis = tostring(spellData[10]).." yards range";
 						end
 						if (spellData[9] <= 0) then
-							GameTooltip:AddDoubleLine("立即施法",castDis,0.65,0.55,0,0,0.8,0.8);
+							GameTooltip:AddDoubleLine("Instant cast",castDis,0.65,0.55,0,0,0.8,0.8);
 						else
-							GameTooltip:AddDoubleLine(tostring(spellData[9]/1000).."秒施法",castDis,0.65,0.55,0,0,0.8,0.8);
+							GameTooltip:AddDoubleLine(tostring(spellData[9]/1000).." seconds cast",castDis,0.65,0.55,0,0,0.8,0.8);
 						end
 					end
 				end
 			else
 				GameTooltip:AddLine(fromParent.dataGroup[newFrame.dataIndex][3],1,0,0,1);
-				GameTooltip:AddLine("该道具没有在你的背包出现过，需要查询服务器，请点击界面下方的刷新按钮重新显示",1,0,0,1);
+				GameTooltip:AddLine("This item has not appeared in your bag before, it needs to query the server, please click the refresh button at the bottom of the interface to display it again",1,0,0,1);
 			end
 			GameTooltip:AddLine(" ",1,1,1,1);
 			if (fromParent.command ~= nil and fromParent.command ~= "") then
-				GameTooltip:AddLine("鼠标左键单击：让 "..fromParent.target.." "..fromParent.activeText,0.65,0.55,0,1);
+				GameTooltip:AddLine("Left-click: Make "..fromParent.target.." "..fromParent.activeText,0.65,0.55,0,1);
 			end
 			if (fromParent.bagsType == 1) then
-				GameTooltip:AddLine("鼠标右键单击：隐藏此道具",0.65,0.55,0,1);
+				GameTooltip:AddLine("Right-click: Hide this item",0.65,0.55,0,1);
 			elseif (fromParent.bagsType == 2) then
-				GameTooltip:AddLine("鼠标右键单击：隐藏此技能",0.65,0.55,0,1);
+				GameTooltip:AddLine("Right-click: Hide this skill",0.65,0.55,0,1);
 			else
-				GameTooltip:AddLine("鼠标右键单击：隐藏此图标",0.65,0.55,0,1);
+				GameTooltip:AddLine("Right-click: Hide this icon",0.65,0.55,0,1);
 			end
 			if (fromParent.bagsType == 2) then
-				GameTooltip:AddDoubleLine("法术ID：",tostring(itemID),0,0.8,0.8,0.8,0,0);
+				GameTooltip:AddDoubleLine("Spell ID:",tostring(itemID),0,0.8,0.8,0.8,0,0);
 			end
 		else
 			GameTooltip:AddLine(newFrame.bagsIcon);
 		end
-		GameTooltip:AddDoubleLine("索引顺序：",tostring(newFrame.iconIndex),0,0,1,1,0,1);
+		GameTooltip:AddDoubleLine("Index Order:",tostring(newFrame.iconIndex),0,0,1,1,0,1);
 		GameTooltip:AddTexture(fromParent.dataGroup[newFrame.dataIndex][4]);
 		GameTooltip:Show();
 	end
@@ -165,9 +164,9 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	end
 	local newFrame = CreateFrame("CheckButton",fromParent:GetName().."BagsType1",fromParent,"UnBotBagsTypeTemplate");
 	newFrame.title = newFrame:CreateFontString(newFrame:GetName().."Title","ARTWORK");
-	newFrame.title:SetFont([[Fonts\ZYHei.ttf]],20);
+	newFrame.title:SetFont([[Fonts\FRIZQT__.TTF]],20);
 	newFrame.title:SetTextColor(1.0,0.8,0,1);
-	newFrame.title:SetText("查看");
+	newFrame.title:SetText("View");
 	newFrame.title:SetPoint("TOPLEFT",newFrame,"TOPRIGHT",2,-5);
 	newFrame.title:SetShadowColor(0,0,0);
 	newFrame.title:SetShadowOffset(1,-1);
@@ -175,7 +174,7 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	newFrame.parentFrame = fromParent;
 	newFrame.command = nil;
 	newFrame.afterRemove = false;
-	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " 查看道具");
+	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " View Items");
 	newFrame:SetPoint("TOPRIGHT", fromParent, "TOPRIGHT", -50, -36 * 1);
 	table.insert(fromParent.optionsType, newFrame);
 	if (checkedIndex == 1) then
@@ -184,9 +183,9 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	
 	newFrame = CreateFrame("CheckButton",fromParent:GetName().."BagsType2",fromParent,"UnBotBagsTypeTemplate");
 	newFrame.title = newFrame:CreateFontString(newFrame:GetName().."Title","ARTWORK");
-	newFrame.title:SetFont([[Fonts\ZYHei.ttf]],20);
+	newFrame.title:SetFont([[Fonts\FRIZQT__.TTF]],20);
 	newFrame.title:SetTextColor(1.0,0.8,0,1);
-	newFrame.title:SetText("装备");
+	newFrame.title:SetText("Equip");
 	newFrame.title:SetPoint("TOPLEFT",newFrame,"TOPRIGHT",2,-5);
 	newFrame.title:SetShadowColor(0,0,0);
 	newFrame.title:SetShadowOffset(1,-1);
@@ -194,7 +193,7 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	newFrame.parentFrame = fromParent;
 	newFrame.command = UnBotExecuteCommand[66];
 	newFrame.afterRemove = true;
-	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " 装备道具");
+	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " Equip Items");
 	newFrame:SetPoint("TOPRIGHT", fromParent, "TOPRIGHT", -50, -36 * 2);
 	table.insert(fromParent.optionsType, newFrame);
 	if (checkedIndex == 2) then
@@ -203,9 +202,9 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	
 	newFrame = CreateFrame("CheckButton",fromParent:GetName().."BagsType3",fromParent,"UnBotBagsTypeTemplate");
 	newFrame.title = newFrame:CreateFontString(newFrame:GetName().."Title","ARTWORK");
-	newFrame.title:SetFont([[Fonts\ZYHei.ttf]],20);
+	newFrame.title:SetFont([[Fonts\FRIZQT__.TTF]],20);
 	newFrame.title:SetTextColor(1.0,0.8,0,1);
-	newFrame.title:SetText("丢弃");
+	newFrame.title:SetText("Discard");
 	newFrame.title:SetPoint("TOPLEFT",newFrame,"TOPRIGHT",2,-5);
 	newFrame.title:SetShadowColor(0,0,0);
 	newFrame.title:SetShadowOffset(1,-1);
@@ -213,7 +212,7 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	newFrame.parentFrame = fromParent;
 	newFrame.command = UnBotExecuteCommand[65];
 	newFrame.afterRemove = true;
-	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " 丢弃道具");
+	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " Discard Items");
 	newFrame:SetPoint("TOPRIGHT", fromParent, "TOPRIGHT", -50, -36 * 3);
 	table.insert(fromParent.optionsType, newFrame);
 	if (checkedIndex == 3) then
@@ -222,9 +221,9 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	
 	newFrame = CreateFrame("CheckButton",fromParent:GetName().."BagsType4",fromParent,"UnBotBagsTypeTemplate");
 	newFrame.title = newFrame:CreateFontString(newFrame:GetName().."Title","ARTWORK");
-	newFrame.title:SetFont([[Fonts\ZYHei.ttf]],20);
+	newFrame.title:SetFont([[Fonts\FRIZQT__.TTF]],20);
 	newFrame.title:SetTextColor(1.0,0.8,0,1);
-	newFrame.title:SetText("卖出");
+	newFrame.title:SetText("Sell");
 	newFrame.title:SetPoint("TOPLEFT",newFrame,"TOPRIGHT",2,-5);
 	newFrame.title:SetShadowColor(0,0,0);
 	newFrame.title:SetShadowOffset(1,-1);
@@ -232,7 +231,7 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	newFrame.parentFrame = fromParent;
 	newFrame.command = UnBotExecuteCommand[67];
 	newFrame.afterRemove = true;
-	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " 卖出道具");
+	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " Sell Items");
 	newFrame:SetPoint("TOPRIGHT", fromParent, "TOPRIGHT", -50, -36 * 4);
 	table.insert(fromParent.optionsType, newFrame);
 	if (checkedIndex == 4) then
@@ -241,9 +240,9 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	
 	newFrame = CreateFrame("CheckButton",fromParent:GetName().."BagsType5",fromParent,"UnBotBagsTypeTemplate");
 	newFrame.title = newFrame:CreateFontString(newFrame:GetName().."Title","ARTWORK");
-	newFrame.title:SetFont([[Fonts\ZYHei.ttf]],20);
+	newFrame.title:SetFont([[Fonts\FRIZQT__.TTF]],20);
 	newFrame.title:SetTextColor(1.0,0.8,0,1);
-	newFrame.title:SetText("使用");
+	newFrame.title:SetText("Use");
 	newFrame.title:SetPoint("TOPLEFT",newFrame,"TOPRIGHT",2,-5);
 	newFrame.title:SetShadowColor(0,0,0);
 	newFrame.title:SetShadowOffset(1,-1);
@@ -251,7 +250,7 @@ local function CreateBagsTypeOptions(fromParent, checkedIndex)
 	newFrame.parentFrame = fromParent;
 	newFrame.command = UnBotExecuteCommand[68];
 	newFrame.afterRemove = true;
-	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " 使用道具");
+	newFrame.parentFrameText = UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, " Use Items");
 	newFrame:SetPoint("TOPRIGHT", fromParent, "TOPRIGHT", -50, -36 * 5);
 	table.insert(fromParent.optionsType, newFrame);
 	if (checkedIndex == 5) then
@@ -278,7 +277,7 @@ local function CreateOptionByParent(fromParent,flushFunc)
 	end
 
 	fromParent.title = fromParent:CreateFontString(fromParent:GetName().."Title","ARTWORK");
-	fromParent.title:SetFont([[Fonts\ZYHei.ttf]],15);
+	fromParent.title:SetFont([[Fonts\FRIZQT__.TTF]],15);
 	fromParent.title:SetTextColor(1.0,1.0,1.0,1);
 	fromParent.title:SetText(UnBotBagsHeadFrameSetFontText(fromParent.raceName, fromParent.target, fromParent.activeText));
 	fromParent.title:SetPoint("TOPLEFT",fromParent,"TOPLEFT",10,-8);
@@ -286,7 +285,7 @@ local function CreateOptionByParent(fromParent,flushFunc)
 	fromParent.title:SetShadowOffset(1,-1);
 
 	fromParent.page = fromParent:CreateFontString(fromParent:GetName().."Page","ARTWORK");
-	fromParent.page:SetFont([[Fonts\ZYHei.ttf]],15);
+	fromParent.page:SetFont([[Fonts\FRIZQT__.TTF]],15);
 	fromParent.page:SetTextColor(1.0,1.0,1.0,1);
 	fromParent.page:SetText("0-0");
 	fromParent.page:SetPoint("CENTER",fromParent,"BOTTOMLEFT",90,22);
@@ -318,7 +317,7 @@ local function CreateOptionByParent(fromParent,flushFunc)
 	newFrame:SetScript("OnClick", function() PickPrevOrNextButton(fromParent,false) end);
 
 	newFrame = CreateFrame("Button","BagsFrameFlush"..fromParent:GetName(),fromParent,"UIPanelButtonTemplate");
-	newFrame:SetText("刷新");
+	newFrame:SetText("Refresh");
 	newFrame:SetWidth(60);
 	newFrame:SetHeight(26);
 	newFrame:Show();
@@ -448,7 +447,7 @@ function UpdateUnBotBagsFramePage(bagsFrame)
 	if (overIndex == 0) then
 		overIndex = 1;
 	end
-	bagsFrame.page:SetText("第 "..tostring(bagsFrame.currentPage).." - "..tostring(overIndex).." 页");
+	bagsFrame.page:SetText("Page "..tostring(bagsFrame.currentPage).." - "..tostring(overIndex));
 end
 
 function ExecuteCommandByBagsItem(bagsFrame,index)
@@ -459,7 +458,7 @@ function ExecuteCommandByBagsItem(bagsFrame,index)
 		if (bagsFrame.command == UnBotExecuteCommand[67]) then
 			local targetName = UnitName("target");
 			if (targetName == nil or targetName == "") then
-				DisplayInfomation("你当前没有选择商人NPC目标。");
+				DisplayInfomation("You currently have no merchant NPC target selected.");
 				return false;
 			end
 		end
@@ -522,22 +521,22 @@ function GetItemFunc(bagsFrame, index)
 end
 
 function IsFilterInfo(info)
-	local f1,f2 = string.find(info,"装备");
+	local f1,f2 = string.find(info,"Equip");
 	if (f1 ~= nil or f2 ~= nil) then
 		return true;
 	end
 
-	f1,f2 = string.find(info,"摧毁");
+	f1,f2 = string.find(info,"Destroy");
 	if (f1 ~= nil or f2 ~= nil) then
 		return true;
 	end
 
-	f1,f2 = string.find(info,"出售");
+	f1,f2 = string.find(info,"Sell");
 	if (f1 ~= nil or f2 ~= nil) then
 		return true;
 	end
 
-	f1,f2 = string.find(info,"使用");
+	f1,f2 = string.find(info,"Use");
 	if (f1 ~= nil or f2 ~= nil) then
 		return true;
 	end

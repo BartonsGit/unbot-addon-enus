@@ -1,5 +1,4 @@
-﻿
-function UnBotGetOptionByType(classType)
+﻿function UnBotGetOptionByType(classType)
 	for i=1,#(OnlineFrame.options) do
 		local opt = OnlineFrame.options[i];
 		if (opt.gameclasstype == classType) then
@@ -48,7 +47,7 @@ function UnBotShowOnlineFrame()
 	if (OnlineFrame.scrollFrame == nil) then
 		OnlineFrame.scrollFrame = _G["OnlineFrameListBox"];
 		if (OnlineFrame.scrollFrame == nil) then
-			DisplayInfomation("打开Online窗口失败。");
+			DisplayInformation("Failed to open Online window.");
 			return;
 		end
 	end
@@ -123,7 +122,7 @@ function UnBotCreateMemberBar(member, index, fromParent)
 	newFrame.index = index;
 	local height = newFrame:GetHeight() + 3;
 	newFrame:SetPoint("TOPLEFT", fromParent, "TOPLEFT", 10, (3 + (index - 1) * height) * (-1));
-	newFrame:SetText(string.format("|cffcc00cc%s|r    |cffffcc00%d 级|r", member[1], member[2]));
+	newFrame:SetText(string.format("|cffcc00cc%s|r    |cffffcc00Level %d|r", member[1], member[2]));
 	newFrame:Show();
 	return newFrame;
 end

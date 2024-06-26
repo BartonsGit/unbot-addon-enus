@@ -1,10 +1,9 @@
-﻿
-function UnBotCheckOffHand(dstFrame, targetName)
-	local slot16Linnk = GetInventoryItemLink(InspectFrame.unit, 16);
-	local slot17Linnk = GetInventoryItemLink(InspectFrame.unit, 17);
-	--DisplayInfomation("Check "..tostring(slot16Linnk).." and "..tostring(slot17Linnk));
-	if (slot17Linnk == nil and slot16Linnk ~= nil) then
-		local item = UnBotQueryItemByID(UnBotGetItemIDByLink(slot16Linnk));
+﻿function UnBotCheckOffHand(dstFrame, targetName)
+	local slot16Link = GetInventoryItemLink(InspectFrame.unit, 16);
+	local slot17Link = GetInventoryItemLink(InspectFrame.unit, 17);
+	--DisplayInformation("Check "..tostring(slot16Link).." and "..tostring(slot17Link));
+	if (slot17Link == nil and slot16Link ~= nil) then
+		local item = UnBotQueryItemByID(UnBotGetItemIDByLink(slot16Link));
 		if (item ~= nil and item[11] ~= "INVTYPE_2HWEAPON") then
 			local matchItems = UnBotMatchItemBySlotType(17, dstFrame.bagItems);
 			local selectItem = nil;
@@ -29,7 +28,7 @@ function UnBotCheckOffHand(dstFrame, targetName)
 						break;
 					end
 				end
-				--DisplayInfomation("Need up 副手 "..tostring(selectItem[5])..", LV "..tostring(UnitLevel(targetName)));
+				--DisplayInformation("Need to upgrade off-hand "..tostring(selectItem[5])..", LV "..tostring(UnitLevel(targetName)));
 			end
 		end
 	end
@@ -90,7 +89,7 @@ function UnBotInitInspectFrame()
 		EquipInventoryFrame:SetPoint("CENTER", ipdf, "CENTER", -10, 0);
 		EquipInventoryFrame:Hide();
 	end
-	DisplayInfomation("嵌入模块到角色查看窗口完成。");
+	DisplayInformation("Module embedded into character inspection window completed.");
 end
 
 function UnBotInspectFrameCanOperator()
@@ -141,7 +140,7 @@ function UnBotInspectPaperDollFrame_OnShow(...)
 	if (dstAction ~= nil) then
 		dstAction(...);
 	end
-	--DisplayInfomation("UnBot UnBotInspectFrame_OnShow "..UnitName(InspectFrame.unit));
+	--DisplayInformation("UnBot UnBotInspectFrame_OnShow "..UnitName(InspectFrame.unit));
 	local dstFrame = _G["InspectPaperDollFrame"];
 	if (dstFrame == nil) then
 		return;
@@ -153,9 +152,9 @@ function UnBotInspectPaperDollFrame_OnShow(...)
 	dstFrame.waitReloadTime = 0.5;
 	if (dstFrame.ubHelpText == nil) then
 		dstFrame.ubHelpText = dstFrame:CreateFontString(dstFrame:GetName().."UnBotHelp","ARTWORK");
-		dstFrame.ubHelpText:SetFont([[Fonts\ZYHei.ttf]],12);
+		dstFrame.ubHelpText:SetFont([[Fonts\FRIZQT__.TTF]],12);
 		dstFrame.ubHelpText:SetTextColor(0,0.8,0.8,1);
-		dstFrame.ubHelpText:SetText("在装备槽中:鼠标左键点击更换装备,鼠标右键点击卸下装备");
+		dstFrame.ubHelpText:SetText("In the equipment slot: Left-click to change equipment, right-click to unequip.");
 		dstFrame.ubHelpText:SetPoint("TOP",dstFrame,"TOP",15,-58);
 		dstFrame.ubHelpText:SetShadowColor(0,0,0);
 		dstFrame.ubHelpText:SetShadowOffset(1,-1);
@@ -344,8 +343,8 @@ function UnBotInspectPaperDollFrameRecvItem(dstFrame, targetName, info)
 	end
 
 	table.insert(dstFrame.bagItems, UnBotQueryItemByID(itemID));
-	--DisplayInfomation("IPDF RecvItem itemName "..tostring(itemName)..", itemQuality "..tostring(itemQuality)..", itemLevel "..tostring(itemLevel)..", itemMinLevel "..tostring(itemMinLevel));
-	--DisplayInfomation("IPDF RecvItem itemType "..tostring(itemType)..", itemSubType "..tostring(itemSubType)..", itemEquipLoc "..tostring(itemEquipLoc)..", itemID "..tostring(itemID));
+	--DisplayInformation("IPDF RecvItem itemName "..tostring(itemName)..", itemQuality "..tostring(itemQuality)..", itemLevel "..tostring(itemLevel)..", itemMinLevel "..tostring(itemMinLevel));
+	--DisplayInformation("IPDF RecvItem itemType "..tostring(itemType)..", itemSubType "..tostring(itemSubType)..", itemEquipLoc "..tostring(itemEquipLoc)..", itemID "..tostring(itemID));
 	--if (dstFrame.canCheckEquip == true) then
 	--	UnBotCheckOffHand(dstFrame, targetName);
 	--end
